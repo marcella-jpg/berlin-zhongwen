@@ -1,0 +1,102 @@
+{
+  "header": {
+    "level": "HSK 1 (3.0) · Beginner",
+    "goal": "Your goal: order food and drinks in Mandarin with confidence.",
+    "nextLesson": "Tue, 27 Oct 2026 · 4:00 PM"
+  },
+  "words": [
+    {
+      "h": "水",
+      "p": "shuǐ",
+      "e": "water",
+      "s": "我喝水。",
+      "sp": "Wǒ hē shuǐ.",
+      "se": "I drink water."
+    },
+    {
+      "h": "茶",
+      "p": "chá",
+      "e": "tea",
+      "s": "他喝茶。",
+      "sp": "Tā hē chá.",
+      "se": "He drinks tea."
+    },
+    {
+      "h": "米饭",
+      "p": "mǐfàn",
+      "e": "cooked rice",
+      "s": "我想吃米饭。",
+      "sp": "Wǒ xiǎng chī mǐfàn.",
+      "se": "I want to eat rice."
+    },
+    {
+      "h": "苹果",
+      "p": "píngguǒ",
+      "e": "apple",
+      "s": "这是苹果。",
+      "sp": "Zhè shì píngguǒ.",
+      "se": "This is an apple."
+    },
+    {
+      "h": "吃",
+      "p": "chī",
+      "e": "to eat",
+      "s": "我吃苹果。",
+      "sp": "Wǒ chī píngguǒ.",
+      "se": "I eat an apple."
+    },
+    {
+      "h": "喝",
+      "p": "hē",
+      "e": "to drink",
+      "s": "你喝茶吗？",
+      "sp": "Nǐ hē chá ma?",
+      "se": "Do you drink tea?"
+    },
+    {
+      "h": "想",
+      "p": "xiǎng",
+      "e": "to want / to think",
+      "s": "我想喝水。",
+      "sp": "Wǒ xiǎng hē shuǐ.",
+      "se": "I want to drink water."
+    },
+    {
+      "h": "谢谢",
+      "p": "xièxie",
+      "e": "thank you",
+      "s": "谢谢你！",
+      "sp": "Xièxie nǐ!",
+      "se": "Thank you!"
+    }
+  ],
+  "grammar": [
+    {
+      "title": "1. Word order is Subject + Verb + Object.",
+      "zh": "我喝水。",
+      "py": "Wǒ hē shuǐ.",
+      "en": "I drink water."
+    },
+    {
+      "title": "2. 想 + verb = “want to …”",
+      "zh": "我想吃米饭。",
+      "py": "Wǒ xiǎng chī mǐfàn.",
+      "en": "I want to eat rice."
+    },
+    {
+      "title": "3. Add 吗 to make a yes/no question.",
+      "zh": "你喝茶吗？",
+      "py": "Nǐ hē chá ma?",
+      "en": "Do you drink tea?"
+    }
+  ],
+  "tips": [
+    "Shadow it: play a word, pause, and repeat it right away. Copy the pitch, not just the sounds.",
+    "Mind the tones: 水 (shuǐ) dips down then up, and 茶 (chá) rises like a question.",
+    "Go slow, then fast: say each sentence slowly three times, then at normal speed.",
+    "Hide the Pinyin: try the cards with Pinyin off and see how many you recognize."
+  ],
+  "materials": [],
+  "homework": [],
+  "videos": []
+}

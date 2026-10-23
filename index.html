@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Berlin’s Mandarin Portal</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<style>
+:root{
+  --bg:#fbf7f0; --surface:#ffffff; --text:#1d2b2a; --muted:#5f716f;
+  --teal:#0f9d9a; --teal-soft:#d9f2f0; --orange:#ff8a3d; --orange-soft:#ffe9da;
+  --ok:#1f9d55; --ok-soft:#dcf5e5; --bad:#d64545; --bad-soft:#fde2e2;
+  --shadow:0 6px 20px rgba(15,157,154,.12);
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1f1e; --surface:#172d2b; --text:#eef6f4; --muted:#9bb3b0;
+    --teal:#2cc5c1; --teal-soft:#1b3f3d; --orange:#ff9a55; --orange-soft:#3b2a1e;
+    --ok:#4ade80; --ok-soft:#173a26; --bad:#ff7b7b; --bad-soft:#3c1f1f;
+    --shadow:0 6px 20px rgba(0,0,0,.35); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1f1e; --surface:#172d2b; --text:#eef6f4; --muted:#9bb3b0;
+  --teal:#2cc5c1; --teal-soft:#1b3f3d; --orange:#ff9a55; --orange-soft:#3b2a1e;
+  --ok:#4ade80; --ok-soft:#173a26; --bad:#ff7b7b; --bad-soft:#3c1f1f;
+  --shadow:0 6px 20px rgba(0,0,0,.35); color-scheme: dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--text);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;margin:0}
+.hanzi{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+.surface{background:var(--surface);box-shadow:var(--shadow);border-radius:1.5rem}
+.muted{color:var(--muted)}
+.teal{color:var(--teal)} .bg-teal{background:var(--teal)} .bg-tealsoft{background:var(--teal-soft)}
+.orange{color:var(--orange)} .bg-orange{background:var(--orange)} .bg-orangesoft{background:var(--orange-soft)}
+body.no-pinyin .pinyin{display:none !important}
+.scene{perspective:1000px}
+.inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.scene.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center}
+.front{background:var(--surface);box-shadow:var(--shadow);border:2px solid var(--teal-soft)}
+.back{background:var(--teal);color:#fff;transform:rotateY(180deg);box-shadow:var(--shadow)}
+.spk{position:absolute;top:.6rem;right:.6rem;width:2.5rem;height:2.5rem;border-radius:9999px;background:var(--orange);color:#fff;border:0;cursor:pointer;display:grid;place-items:center;font-size:1.1rem;z-index:2;transition:transform .15s}
+.spk:hover{transform:scale(1.1)} .spk:active{transform:scale(.92)}
+.opt{width:100%;text-align:left;padding:.85rem 1rem;border-radius:1rem;border:2px solid var(--teal-soft);background:var(--surface);color:var(--text);font-weight:700;cursor:pointer;transition:all .15s}
+.opt:hover:not(:disabled){border-color:var(--teal);transform:translateY(-1px)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.btn{background:var(--orange);color:#fff;border:0;border-radius:9999px;padding:.7rem 1.4rem;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
+.sw{width:3.2rem;height:1.8rem;border-radius:9999px;background:var(--muted);position:relative;border:0;cursor:pointer;transition:background .2s;flex:none}
+.sw::after{content:"";position:absolute;top:.2rem;left:.2rem;width:1.4rem;height:1.4rem;border-radius:9999px;background:#fff;transition:transform .2s}
+.sw[aria-checked="true"]{background:var(--teal)}
+.sw[aria-checked="true"]::after{transform:translateX(1.4rem)}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);opacity:.97}
+button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.tabs{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0}
+.tab{flex:none;padding:.55rem 1rem;border-radius:9999px;border:2px solid var(--teal-soft);background:var(--surface);color:var(--text);font-weight:800;cursor:pointer}
+.tab.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.fld{width:100%;padding:.6rem .8rem;border-radius:.9rem;border:2px solid var(--teal-soft);background:var(--bg);color:var(--text);font:inherit}
+.lnk{display:inline-block;background:var(--teal);color:#fff;border-radius:9999px;padding:.4rem .9rem;font-weight:800;font-size:.85rem;text-decoration:none}
+.lnk.o{background:var(--orange)}
+.mini{background:var(--bad-soft);color:var(--bad);border:0;border-radius:9999px;padding:.3rem .7rem;font-weight:800;cursor:pointer;font-size:.8rem}
+.tchr{display:none} body.teacher .tchr{display:block}
+.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:34rem}
+.tbl th{text-align:left;padding:.6rem;background:var(--teal-soft);color:var(--teal)}
+.tbl td{padding:.6rem;border-top:1px solid var(--teal-soft);vertical-align:top}
+.item{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;padding:.9rem 1rem;border-radius:1rem;background:var(--surface);box-shadow:var(--shadow)}
+</style>
+</head>
+<body>
+<main class="max-w-3xl mx-auto px-4 pb-16">
+
+  <!-- Header -->
+  <header class="pt-6">
+    <div class="rounded-3xl p-6 text-white" style="background:linear-gradient(135deg,var(--teal),#13b8b4);box-shadow:var(--shadow)">
+      <span class="inline-block text-xs font-extrabold tracking-wide px-3 py-1 rounded-full bg-white/20" id="level"></span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mt-3"><span class="hanzi">你好</span>, <span id="name"></span>! 👋</h1>
+      <p class="mt-2 pinyin text-white/80 text-sm">Nǐ hǎo!</p>
+      <p class="mt-3 text-white/95" id="goal"></p>
+      <div class="mt-4 inline-flex items-center gap-2 rounded-2xl px-4 py-2 font-bold bg-orange text-white">📅 Next lesson: <span id="next"></span></div>
+    </div>
+  </header>
+
+  <!-- Pinyin toggle -->
+  <div class="topbar py-3 mt-2">
+    <div class="surface flex items-center justify-between px-5 py-3">
+      <div>
+        <div class="font-extrabold">Show Pinyin</div>
+        <div class="text-xs muted">Turn off to test yourself on characters</div>
+      </div>
+      <button id="pyToggle" class="sw" role="switch" aria-checked="true" aria-label="Show Pinyin"></button>
+    </div>
+  </div>
+
+  <nav class="tabs mt-3" aria-label="Sections">
+    <button class="tab on" data-p="home">🏠 Home</button>
+    <button class="tab" data-p="materials">📚 Materials</button>
+    <button class="tab" data-p="homework">📝 Homework</button>
+    <button class="tab" data-p="videos">🎬 Videos</button>
+  </nav>
+  
+
+<div id="page-home">
+  
+  <!-- Flashcards -->
+  <section class="mt-6">
+    <h2 class="text-2xl font-extrabold">🃏 Flashcards <span class="text-base muted font-bold">· Eating &amp; Drinking</span></h2>
+    <p class="muted text-sm mt-1">Tap a card to flip it. Tap 🔊 to hear it.</p>
+    <div id="deck" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4"></div>
+    
+  </section>
+
+  <!-- Quiz -->
+  <section class="mt-10">
+    <div class="flex items-end justify-between">
+      <h2 class="text-2xl font-extrabold">✏️ Practice Quiz</h2>
+      <div class="px-4 py-1.5 rounded-full bg-orangesoft orange font-extrabold text-sm">Score: <span id="score">0</span>/4</div>
+    </div>
+    <div class="surface p-5 mt-4" id="quiz"></div>
+  </section>
+
+  <!-- Notes -->
+  <section class="mt-10">
+    <h2 class="text-2xl font-extrabold">📝 Lesson Notes &amp; Audio Tips</h2>
+    <div class="grid sm:grid-cols-2 gap-4 mt-4">
+      <div class="surface p-5">
+        <h3 class="font-extrabold teal">Grammar from last session</h3>
+        
+        <ul id="gramList" class="mt-3 space-y-3 text-sm">
+          <li><b>1. Word order is Subject + Verb + Object.</b><br><span class="hanzi text-lg">我喝水。</span> <span class="pinyin muted">Wǒ hē shuǐ.</span><br><span class="muted">I drink water.</span></li>
+          <li><b>2. 想 + verb = “want to …”</b><br><span class="hanzi text-lg">我想吃米饭。</span> <span class="pinyin muted">Wǒ xiǎng chī mǐfàn.</span><br><span class="muted">I want to eat rice.</span></li>
+          <li><b>3. Add 吗 to make a yes/no question.</b><br><span class="hanzi text-lg">你喝茶吗？</span> <span class="pinyin muted">Nǐ hē chá ma?</span><br><span class="muted">Do you drink tea?</span></li>
+        </ul>
+      </div>
+      <div class="surface p-5 bg-tealsoft" style="background:var(--teal-soft)">
+        <h3 class="font-extrabold orange">🎧 Audio tips</h3>
+        
+        <ul id="tipList" class="mt-3 space-y-3 text-sm">
+          <li><b>Shadow it.</b> Play a word, pause, and repeat it right away. Copy the pitch, not just the sounds.</li>
+          <li><b>Mind the tones.</b> 水 <span class="pinyin">shuǐ</span> dips down then up (3rd tone). 茶 <span class="pinyin">chá</span> rises like a question (2nd tone).</li>
+          <li><b>Go slow, then fast.</b> Say each sentence slowly three times, then at normal speed.</li>
+          <li><b>Hide the Pinyin.</b> Try the cards with Pinyin off and see how many you recognize.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Materials -->
+<div id="page-materials" class="hidden">
+  <section class="mt-6">
+    <h2 class="text-2xl font-extrabold">📚 Materials</h2>
+    <p class="muted text-sm mt-1">PDFs and worksheets from your teacher.</p>
+    
+    <div id="matList" class="grid gap-3 mt-4"></div>
+  </section>
+</div>
+
+<!-- Homework -->
+<div id="page-homework" class="hidden">
+  <section class="mt-6">
+    <h2 class="text-2xl font-extrabold">📝 Homework</h2>
+    <p class="muted text-sm mt-1">Tap Upload to submit your work. Scores and feedback appear in the table.</p>
+    
+    <div class="surface mt-4 overflow-x-auto">
+      <table class="tbl">
+        <thead><tr><th>Homework</th><th>Upload</th><th>Score</th><th>Feedback</th></tr></thead>
+        <tbody id="hwBody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- Videos -->
+<div id="page-videos" class="hidden">
+  <section class="mt-6">
+    <h2 class="text-2xl font-extrabold">🎬 Videos</h2>
+    <p class="muted text-sm mt-1">Class recordings and videos your teacher recommends.</p>
+    
+    <h3 class="font-extrabold teal mt-5">🎥 Class recordings</h3>
+    <div id="recList" class="grid gap-3 mt-2"></div>
+    <h3 class="font-extrabold orange mt-6">⭐ Recommended references</h3>
+    <div id="refList" class="grid gap-3 mt-2"></div>
+  </section>
+</div>
+
+  <footer class="text-center muted text-xs mt-10">加油, <span class="berlin"></span>! Keep going 💪</footer>
+</main>
+
+<script>
+// ✏️ Edit these details any time
+const CONFIG = {
+  name: "Berlin",
+  level: "HSK 1 (3.0) · Beginner",
+  goal: "Your goal: order food and drinks in Mandarin with confidence.",
+  nextLesson: "Tue, 27 Oct 2026 · 4:00 PM"
+};
+
+let WORDS = [
+  {h:"水", p:"shuǐ", e:"water", s:"我喝水。", sp:"Wǒ hē shuǐ.", se:"I drink water."},
+  {h:"茶", p:"chá", e:"tea", s:"他喝茶。", sp:"Tā hē chá.", se:"He drinks tea."},
+  {h:"米饭", p:"mǐfàn", e:"cooked rice", s:"我想吃米饭。", sp:"Wǒ xiǎng chī mǐfàn.", se:"I want to eat rice."},
+  {h:"苹果", p:"píngguǒ", e:"apple", s:"这是苹果。", sp:"Zhè shì píngguǒ.", se:"This is an apple."},
+  {h:"吃", p:"chī", e:"to eat", s:"我吃苹果。", sp:"Wǒ chī píngguǒ.", se:"I eat an apple."},
+  {h:"喝", p:"hē", e:"to drink", s:"你喝茶吗？", sp:"Nǐ hē chá ma?", se:"Do you drink tea?"},
+  {h:"想", p:"xiǎng", e:"to want / to think", s:"我想喝水。", sp:"Wǒ xiǎng hē shuǐ.", se:"I want to drink water."},
+  {h:"谢谢", p:"xièxie", e:"thank you", s:"谢谢你！", sp:"Xièxie nǐ!", se:"Thank you!"}
+];
+
+// Header
+document.getElementById("name").textContent = CONFIG.name;
+document.getElementById("level").textContent = CONFIG.level;
+document.getElementById("goal").textContent = CONFIG.goal;
+document.getElementById("next").textContent = CONFIG.nextLesson;
+document.querySelectorAll(".berlin").forEach(el => el.textContent = CONFIG.name);
+document.title = CONFIG.name + "’s Mandarin Portal";
+
+// Speech
+function speak(text){
+  if(!("speechSynthesis" in window)){ alert("Sorry, audio isn’t supported in this browser."); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN"; u.rate = 0.8;
+  window.speechSynthesis.speak(u);
+}
+
+// Pinyin toggle
+const sw = document.getElementById("pyToggle");
+sw.addEventListener("click", () => {
+  const on = sw.getAttribute("aria-checked") !== "true";
+  sw.setAttribute("aria-checked", String(on));
+  document.body.classList.toggle("no-pinyin", !on);
+});
+
+// Flashcards
+const deck = document.getElementById("deck");
+function esc(s){ const d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+function buildDeck(){
+deck.textContent = "";
+if(!WORDS.length){ deck.innerHTML = '<div class="muted text-sm p-3 col-span-2 sm:col-span-4">No words yet. Check back soon!</div>'; return; }
+WORDS.forEach(w0 => {
+  const w = {}; for(const k in w0) w[k] = esc(w0[k]);
+  const scene = document.createElement("div");
+  scene.className = "scene h-52 relative cursor-pointer";
+  scene.tabIndex = 0;
+  scene.setAttribute("role","button");
+  scene.setAttribute("aria-label","Flashcard " + w.h + ". Press to flip.");
+  scene.innerHTML = `
+    <div class="inner">
+      <div class="face front">
+        <div class="hanzi font-extrabold" style="font-size:3.2rem;line-height:1.1">${w.h}</div>
+        <div class="muted text-xs mt-3">tap to flip</div>
+      </div>
+      <div class="face back">
+        <div class="pinyin text-xl font-extrabold">${w.p}</div>
+        <div class="font-bold text-lg">${w.e}</div>
+        <div class="mt-2 text-xs leading-snug opacity-95">
+          <div class="hanzi text-sm font-bold">${w.s}</div>
+          <div class="pinyin">${w.sp}</div>
+          <div>${w.se}</div>
+        </div>
+      </div>
+    </div>`;
+  const btn = document.createElement("button");
+  btn.className = "spk"; btn.type = "button";
+  btn.setAttribute("aria-label","Pronounce " + w.h);
+  btn.textContent = "🔊";
+  btn.addEventListener("click", e => { e.stopPropagation(); speak(w0.h); });
+  scene.appendChild(btn);
+  const flip = () => scene.classList.toggle("flipped");
+  scene.addEventListener("click", flip);
+  scene.addEventListener("keydown", e => { if(e.target === scene && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); flip(); } });
+  deck.appendChild(scene);
+});
+}
+buildDeck();
+
+// Quiz
+const quizEl = document.getElementById("quiz");
+const scoreEl = document.getElementById("score");
+let questions = [], qi = 0, score = 0;
+const shuffle = a => a.map(v => [Math.random(), v]).sort((x,y) => x[0]-y[0]).map(x => x[1]);
+
+function startQuiz(){
+  if(WORDS.length < 4){ quizEl.innerHTML = '<div class="muted p-3">Add at least 4 words to unlock the quiz.</div>'; scoreEl.textContent = "0"; return; }
+  questions = shuffle(WORDS).slice(0,4).map(w => ({
+    word: w,
+    options: shuffle([w, ...shuffle(WORDS.filter(x => x !== w)).slice(0,3)])
+  }));
+  qi = 0; score = 0; scoreEl.textContent = "0";
+  renderQ();
+}
+
+function renderQ(){
+  const q = questions[qi];
+  quizEl.innerHTML = `
+    <div class="text-xs font-extrabold muted">Question ${qi+1} of 4</div>
+    <div class="text-center my-4">
+      <div class="hanzi font-extrabold teal" style="font-size:4rem;line-height:1.1">${esc(q.word.h)}</div>
+      <div class="pinyin muted mt-1">${esc(q.word.p)}</div>
+      <button type="button" id="qSpk" class="btn mt-3" style="padding:.4rem 1rem">🔊 Listen</button>
+    </div>
+    <div class="grid gap-3" id="opts"></div>
+    <div id="fb" class="mt-4 font-bold min-h-[1.5rem]" aria-live="polite"></div>
+    <div id="nx" class="mt-3 text-right"></div>`;
+  document.getElementById("qSpk").addEventListener("click", () => speak(q.word.h));
+  const opts = document.getElementById("opts");
+  q.options.forEach(o => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "opt"; b.textContent = o.e;
+    b.addEventListener("click", () => answer(b, o, q));
+    opts.appendChild(b);
+  });
+}
+
+function answer(btn, chosen, q){
+  const all = [...document.querySelectorAll("#opts .opt")];
+  all.forEach(b => b.disabled = true);
+  const fb = document.getElementById("fb");
+  if(chosen === q.word){
+    btn.classList.add("ok"); score++; scoreEl.textContent = score;
+    fb.style.color = "var(--ok)"; fb.textContent = "✅ Correct! 太棒了!";
+  } else {
+    btn.classList.add("bad");
+    all.find(b => b.textContent === q.word.e).classList.add("ok");
+    fb.style.color = "var(--bad)"; fb.textContent = "❌ Not quite. " + q.word.h + " means “" + q.word.e + "”.";
+  }
+  const nx = document.getElementById("nx");
+  const last = qi === questions.length - 1;
+  nx.innerHTML = `<button type="button" class="btn" id="nbtn">${last ? "See results" : "Next question →"}</button>`;
+  document.getElementById("nbtn").addEventListener("click", () => { last ? renderEnd() : (qi++, renderQ()); });
+}
+
+function renderEnd(){
+  const msg = score === 4 ? "Perfect! 完美!" : score >= 2 ? "Nice work! 不错!" : "Good try, review the cards and go again!";
+  quizEl.innerHTML = `
+    <div class="text-center py-4">
+      <div style="font-size:3rem">${score === 4 ? "🏆" : "🌟"}</div>
+      <div class="text-2xl font-extrabold mt-2">You scored ${score} / 4</div>
+      <p class="muted mt-1">${msg}</p>
+      <button type="button" class="btn mt-4" id="again">Try again 🔁</button>
+    </div>`;
+  document.getElementById("again").addEventListener("click", startQuiz);
+}
+
+startQuiz();
+
+// ===== Sub-pages =====
+const $ = id => document.getElementById(id);
+const PAGES = ["home","materials","homework","videos"];
+function show(p){
+  if(!PAGES.includes(p)) p = "home";
+  PAGES.forEach(n => $("page-"+n).classList.toggle("hidden", n !== p));
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.p === p));
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+  show(t.dataset.p);
+  try{ location.hash = t.dataset.p; }catch(e){}
+}));
+window.addEventListener("hashchange", () => show(location.hash.slice(1)));
+show(location.hash.slice(1));
+
+function mk(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; }
+function safe(u){ return /^https?:\/\//i.test(u || "") ? u : ""; }
+function lnk(href, label, extra){ const a = mk("a", "lnk " + (extra || ""), label); a.href = safe(href) || "#"; a.target = "_blank"; a.rel = "noopener"; return a; }
+function empty(box, msg){ box.appendChild(mk("div", "muted text-sm p-3", msg)); }
+
+
+function renderMaterials(items){
+  const box = $("matList"); box.textContent = "";
+  if(!items.length) return empty(box, "No materials yet. Check back soon!");
+  items.forEach(m => {
+    const row = mk("div", "item");
+    row.appendChild(mk("div", "font-extrabold", "📄 " + m.title));
+    row.appendChild(lnk(m.url, "Open PDF")); box.appendChild(row);
+  });
+}
+function renderVideos(items){
+  [["recList","recording","No recordings yet."],["refList","reference","No recommendations yet."]].forEach(([id, kind, msg]) => {
+    const box = $(id); box.textContent = "";
+    const list = items.filter(v => v.kind === kind);
+    if(!list.length) return empty(box, msg);
+    list.forEach(v => {
+      const row = mk("div", "item"), left = mk("div");
+      left.appendChild(mk("div", "font-extrabold", "▶ " + v.title));
+      if(v.note) left.appendChild(mk("div", "muted text-sm", v.note));
+      row.appendChild(left); row.appendChild(lnk(v.url, "Watch", kind === "reference" ? "o" : "")); box.appendChild(row);
+    });
+  });
+}
+function renderHomework(items){
+  const body = $("hwBody"); body.textContent = "";
+  if(!items.length){ const tr = mk("tr"), td = mk("td", "muted", "No homework yet. Enjoy your break! 🎉"); td.colSpan = 4; tr.appendChild(td); body.appendChild(tr); return; }
+  items.forEach(h => {
+    const tr = mk("tr"), t = mk("td"), u = mk("td"), s = mk("td"), f = mk("td");
+    t.appendChild(mk("div", "font-extrabold", h.title));
+    if(h.due) t.appendChild(mk("div", "muted text-xs", "Due: " + h.due));
+    if(safe(h.url)) u.appendChild(lnk(h.url, "⬆️ Upload", "o")); else u.appendChild(mk("span", "muted text-xs", "No link yet"));
+    s.appendChild(mk("span", "font-extrabold teal", h.score || "—"));
+    f.appendChild(mk("span", h.feedback ? "" : "muted text-xs", h.feedback || "Waiting for feedback"));
+    [t, u, s, f].forEach(c => tr.appendChild(c)); body.appendChild(tr);
+  });
+}
+function renderGrammar(items){
+  const ul = $("gramList"); ul.textContent = "";
+  items.forEach(g => {
+    const li = mk("li"); li.appendChild(mk("b", "", g.title || ""));
+    if(g.zh || g.py){ li.appendChild(mk("br")); if(g.zh) li.appendChild(mk("span", "hanzi text-lg", g.zh)); if(g.py) li.appendChild(mk("span", "pinyin muted", " " + g.py)); }
+    if(g.en){ li.appendChild(mk("br")); li.appendChild(mk("span", "muted", g.en)); }
+    ul.appendChild(li);
+  });
+}
+function renderTips(items){
+  const ul = $("tipList"); ul.textContent = "";
+  items.forEach(t => ul.appendChild(mk("li", "", t)));
+}
+function init(d){
+  const h = d.header || {};
+  if(h.level) $("level").textContent = h.level;
+  if(h.goal) $("goal").textContent = h.goal;
+  if(h.nextLesson) $("next").textContent = h.nextLesson;
+  if(Array.isArray(d.words) && d.words.length){ WORDS = d.words; buildDeck(); startQuiz(); }
+  renderGrammar(d.grammar || []); renderTips(d.tips || []);
+  renderMaterials(d.materials || []); renderVideos(d.videos || []); renderHomework(d.homework || []);
+}
+fetch("data.json", {cache: "no-store"})
+  .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(init)
+  .catch(() => ["matList","recList","refList"].forEach(i => empty($(i), "Content could not be loaded.")));
+</script>
+</body>
+</html>
