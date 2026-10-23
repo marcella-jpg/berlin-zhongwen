@@ -74,7 +74,12 @@
     "Go slow, then fast: say each sentence slowly three times, then at normal speed.",
     "Hide the Pinyin: try the cards with Pinyin off and see how many you recognize."
   ],
-  "materials": [],
+  "materials": [
+  {
+    "title": "PDF Materials",
+    "url": "https://drive.google.com/drive/folders/1c7n_AuGLFNJNWPBObWVcqxAHS-uPc2b6?usp=share_link"
+  }
+],
   "homework": [
     {
       "title": "Write 5 sentences with 想",
