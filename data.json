@@ -1,88 +1,88 @@
 {
   "header": {
     "level": "HSK 1 (3.0) · Beginner",
-    "goal": "Your goal: be able to understand and describe locations, positions, and related details.",
-    "nextLesson": "Sat, 24 Oct 2026 · 7:00 PM"
+    "goal": "Your goal: be able to understand and describe daily activities and ongoing actions.",
+    "nextLesson": "Mon, 16 Nov 2026 · 7:00 PM"
   },
   "words": [
     {
-      "h": "小猫",
-      "p": "xiǎomāo",
-      "e": "kitten / cat",
-      "s": "我家有一只小猫。",
-      "sp": "Wǒ jiā yǒu yì zhī xiǎomāo.",
-      "se": "My family has a small cat."
+      "h": "读",
+      "p": "dú",
+      "e": "read / study",
+      "s": "我在读书。",
+      "sp": "Wǒ zài dú shū.",
+      "se": "I am reading a book."
     },
     {
-      "h": "桌子",
-      "p": "zhuōzi",
-      "e": "table / desk",
-      "s": "桌子上有一本书。",
-      "sp": "Zhuōzi shàng yǒu yì běn shū.",
-      "se": "There is a book on the table."
+      "h": "大学生",
+      "p": "dàxuéshēng",
+      "e": "college student",
+      "s": "他是大学生。",
+      "sp": "Tā shì dàxuéshēng.",
+      "se": "He is a college student."
     },
     {
-      "h": "一生",
-      "p": "yìshēng",
-      "e": "lifetime / all one’s life",
-      "s": "他一生喜欢读书。",
-      "sp": "Tā yìshēng xǐhuan dúshū.",
-      "se": "He loved reading all his life."
+      "h": "睡觉",
+      "p": "shuìjiào",
+      "e": "sleep / go to bed",
+      "s": "我要睡觉了。",
+      "sp": "Wǒ yào shuìjiào le.",
+      "se": "I am going to sleep."
     },
     {
-      "h": "学校",
-      "p": "xuéxiào",
-      "e": "school",
-      "s": "我的学校很大。",
-      "sp": "Wǒ de xuéxiào hěn dà.",
-      "se": "My school is very big."
+      "h": "开车",
+      "p": "kāichē",
+      "e": "drive a car",
+      "s": "爸爸正在开车。",
+      "sp": "Bàba zhèngzài kāichē.",
+      "se": "Dad is driving."
     },
     {
-      "h": "书店",
-      "p": "shūdiàn",
-      "e": "bookstore",
-      "s": "我打算去书店。",
-      "sp": "Wǒ dǎsuàn qù shūdiàn.",
-      "se": "I plan to go to the bookstore."
+      "h": "找",
+      "p": "zhǎo",
+      "e": "look for / search",
+      "s": "你在找什么？",
+      "sp": "Nǐ zài zhǎo shénme?",
+      "se": "What are you looking for?"
     },
     {
-      "h": "房间",
-      "p": "fángjiān",
-      "e": "room",
-      "s": "这个房间很干净。",
-      "sp": "Zhège fángjiān hěn gānjìng.",
-      "se": "This room is very clean."
+      "h": "做",
+      "p": "zuò",
+      "e": "do / make",
+      "s": "你在做什么？",
+      "sp": "Nǐ zài zuò shénme?",
+      "se": "What are you doing?"
     }
   ],
   "grammar": [
     {
-      "title": "1. Subject + 在 + place.",
-      "zh": "我在医院。",
-      "py": "Wǒ zài yīyuàn.",
-      "en": "I’m at the hospital."
+      "title": "1. Subject + 要 + Verb (Want to / Going to)",
+      "zh": "我要睡觉。",
+      "py": "Wǒ yào shuìjiào.",
+      "en": "I want to sleep / I am going to sleep."
     },
     {
-      "title": "2. Noun + 下 / 上 / 里 / 外 / 前 / 后 / 外边 = location words (under, on, in, outside, in front, behind, outside).",
-      "zh": "床下有一只猫。",
-      "py": "Chuáng xià yǒu yì zhī māo.",
-      "en": "There’s a cat under the bed."
+      "title": "2. Subject + 在 / 正在 + Verb (Action in progress)",
+      "zh": "他正在开车。",
+      "py": "Tā zhèngzài kāichē.",
+      "en": "He is currently driving."
     }
   ],
   "tips": [
     "Shadow it: play a word, pause, and repeat it right away. Copy the pitch, not just the sounds.",
-    "Mind the tones: 水 (shuǐ) dips down then up, and 茶 (chá) rises like a question.",
+    "Mind the tones: 读 (dú) rises like a question, while 睡觉 (shuìjiào) goes down then neutral/down.",
     "Go slow, then fast: say each sentence slowly three times, then at normal speed.",
     "Hide the Pinyin: try the cards with Pinyin off and see how many you recognize."
   ],
   "materials": [
-  {
-    "title": "PDF Materials",
-    "url": "https://drive.google.com/drive/folders/1c7n_AuGLFNJNWPBObWVcqxAHS-uPc2b6?usp=share_link"
-  }
-],
+    {
+      "title": "PDF Materials",
+      "url": "https://drive.google.com/drive/folders/1c7n_AuGLFNJNWPBObWVcqxAHS-uPc2b6?usp=share_link"
+    }
+  ],
   "homework": [
     {
-      "title": "Write 5 sentences with 想",
+      "title": "Write 5 sentences using 要 and 在/正在",
       "due": "Mon, 2 Nov",
       "url": "https://drive.google.com/drive/folders/1qXUUKYEjEoLq0UNSZJnRydTDV0xxjsoH?usp=share_link",
       "score": "",
