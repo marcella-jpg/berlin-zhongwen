@@ -6,66 +6,66 @@
   },
   "words": [
     {
-      "h": "读",
-      "p": "dú",
-      "e": "read / study",
-      "s": "我在读书。",
-      "sp": "Wǒ zài dú shū.",
-      "se": "I am reading a book."
+      "h": "天气",
+      "p": "tiānqì",
+      "e": "weather",
+      "s": "天气不好。",
+      "sp": "Tiān qì bù hǎo.",
+      "se": "The weather isn't good."
     },
     {
-      "h": "大学生",
-      "p": "dàxuéshēng",
-      "e": "college student",
-      "s": "他是大学生。",
-      "sp": "Tā shì dàxuéshēng.",
-      "se": "He is a college student."
+      "h": "雪",
+      "p": "xuě",
+      "e": "snow",
+      "s": "下雪。",
+      "sp": "xià xuě.",
+      "se": "it's snowing."
     },
     {
-      "h": "睡觉",
-      "p": "shuìjiào",
-      "e": "sleep / go to bed",
-      "s": "我要睡觉了。",
-      "sp": "Wǒ yào shuìjiào le.",
-      "se": "I am going to sleep."
+      "h": "生病",
+      "p": "shēng bìng",
+      "e": "sick",
+      "s": "我生病了。",
+      "sp": "wǒ shēng bìng le.",
+      "se": "I am sick."
     },
     {
-      "h": "开车",
-      "p": "kāichē",
-      "e": "drive a car",
-      "s": "爸爸正在开车。",
-      "sp": "Bàba zhèngzài kāichē.",
-      "se": "Dad is driving."
+      "h": "可以",
+      "p": "kěyǐ",
+      "e": "able to",
+      "s": "他可以说。",
+      "sp": "tā kě yǐ shuō.",
+      "se": "She can speak."
     },
     {
-      "h": "找",
-      "p": "zhǎo",
+      "h": "阴天",
+      "p": "yīn tiān",
       "e": "look for / search",
-      "s": "你在找什么？",
-      "sp": "Nǐ zài zhǎo shénme?",
-      "se": "What are you looking for?"
+      "s": "今天阴天",
+      "sp": "jīn tiān yīn tiān.",
+      "se": "today is cloudy"
     },
     {
-      "h": "做",
-      "p": "zuò",
-      "e": "do / make",
-      "s": "你在做什么？",
-      "sp": "Nǐ zài zuò shénme?",
-      "se": "What are you doing?"
+      "h": "热",
+      "p": "rè",
+      "e": "hot",
+      "s": "你觉得天气热吗？",
+      "sp": "Nǐ juéde tiānqì rè ma?",
+      "se": "do you think the weather is hot?"
     }
   ],
   "grammar": [
     {
-      "title": "1. Subject + 要 + Verb (Want to / Going to)",
-      "zh": "我要睡觉。",
-      "py": "Wǒ yào shuìjiào.",
-      "en": "I want to sleep / I am going to sleep."
+      "title": "1. 可以 （possibility, capability, permission)",
+      "zh": "我可以去外边吗？",
+      "py": "Wǒ kěyǐ qù wàibiān ma?.",
+      "en": "may I go outside?"
     },
     {
-      "title": "2. Subject + 在 / 正在 + Verb (Action in progress)",
-      "zh": "他正在开车。",
-      "py": "Tā zhèngzài kāichē.",
-      "en": "He is currently driving."
+      "title": "2. verb + 一下",
+      "zh": "你去一下。",
+      "py": "nǐ qù yíxià.",
+      "en": "you go (first)."
     }
   ],
   "tips": [
